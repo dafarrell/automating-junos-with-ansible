@@ -1,0 +1,28 @@
+---
+- name: Get device uptime
+  hosts:
+    - all
+  roles:
+    - Juniper.junos
+
+  connection: local
+  gather_facts: no
+#  vars_prompt:
+#    - name: username
+#      prompt: JunOS Username
+#      private: no
+#    - name: password
+#      prompt: JunOS Password
+#      private: yes
+
+  tasks:
+    - name: Get Uptime using Ansible Galaxy Module
+      juniper_junos_rpc:
+        rpc: get-system-uptime-information
+        dest: "{{ inventory_hostname }}-uptime.xml"
+        format: text
+        host: "{{ ansible_host }}"
+        port: 2222
+#        username: "{{ username }}"
+#        password: "{{ password }}"
+
